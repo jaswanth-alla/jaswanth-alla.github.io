@@ -134,7 +134,25 @@
 		$(".fh5co-loader").fadeOut("slow");
 	};
 
-	
+	var themeToggle = function() {
+		var body = $('body');
+		var button = $('#themeToggle');
+		var storedTheme = localStorage.getItem('portfolio-theme');
+		var initialTheme = storedTheme || 'light';
+
+		body.attr('data-theme', initialTheme);
+		button.text(initialTheme === 'dark' ? '☀' : '☾');
+		button.attr('aria-label', initialTheme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+
+		button.on('click', function() {
+			var nextTheme = body.attr('data-theme') === 'dark' ? 'light' : 'dark';
+			body.attr('data-theme', nextTheme);
+			localStorage.setItem('portfolio-theme', nextTheme);
+			button.text(nextTheme === 'dark' ? '☀' : '☾');
+			button.attr('aria-label', nextTheme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+		});
+	};
+
 	$(function(){
 		contentWayPoint();
 		goToTop();
@@ -143,6 +161,7 @@
 		parallax();
 		// pieChart();
 		skillsWayPoint();
+		themeToggle();
 	});
 
 
